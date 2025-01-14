@@ -32,7 +32,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.get("/", (req,res,next)=>{res.send("HOOIIII")})
+// ROUTE IMPORTS
+
+const indexRoute = require('./routes/index')
+const userRoute = require('./routes/user')
+
+// ROUTES
+
+app.use('/',indexRoute)
+app.use('/user', userRoute)
+
+//app.get("/", (req,res,next)=>{res.send("HOOIIII")})
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
