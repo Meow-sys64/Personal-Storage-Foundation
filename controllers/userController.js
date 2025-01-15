@@ -7,12 +7,15 @@ const passport = require('passport');
 module.exports = {
     async getRegister(req, res, next){
 
-        res.send("in register route")
+        // res.send("in register route")
+      res.render('register')
     },
     async postRegister(req,res,next){
 
     },
     async getLogin(req,res,next){
-    res.send("in login route")
+    res.render("login")
+  },
+    async postLogin(req,res,next){
   }
 }
