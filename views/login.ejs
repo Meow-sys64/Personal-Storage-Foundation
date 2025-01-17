@@ -7,6 +7,7 @@
 </head>
 <body>
    <h1>Login</h1> 
+   <%- include("partials/errors.ejs") %>
    <form action="/user/login" method="POST">
     <label for="username">Username:</label>
     <input type="text" name="username" id="username">
