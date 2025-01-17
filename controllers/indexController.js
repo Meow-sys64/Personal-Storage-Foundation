@@ -30,6 +30,6 @@ module.exports = {
         //return res.render("index",{messages: messages, user: null})
         //// render messages and btns to login/register
         // res.send("in index route")
-        res.render("index",{username: req.user?.name})
+        res.render("index",{username: req.user?.username})
     },
 }
