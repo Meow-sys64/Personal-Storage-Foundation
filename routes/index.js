@@ -10,5 +10,6 @@ const passport = require('passport');
 */
 
 router.get('/',indexController.index)
+router.get('/logout', indexController.logout)
 
 module.exports = router

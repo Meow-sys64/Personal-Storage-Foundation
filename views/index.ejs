@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
+
 <body>
-   <header>
+  <header>
     <nav>
-        <a href="/" class="home-link">Home</a>
+      <ul>
+        <li>
+          <a href="/" class="home-link">Home</a>
+        </li>
         <% if (username){ %>
-            <p>Hello, <%= username %></p>
-        <%} else  {%>
-            <a href="/user/login">Login</a>
+          <li>
+            <p>Hello, <%= username %>
+            </p>
+          </li>
+          <li>
+            <a href="/logout">Logout</a>
+          </li>
+          <%} else {%>
+            <li>
+              <a href="/user/login">Login</a>
+            </li>
+            <li>
             <a href="/user/register">Register</a>
-        <% } %>
-    </nav>
-   </header> 
-</body>
+          </li>
+          <% } %>
+        </ul>
+      </nav>
+    </header>
+  </body>
+
 </html>

@@ -32,4 +32,10 @@ module.exports = {
         // res.send("in index route")
         res.render("index",{username: req.user?.username})
     },
+    logout(req,res,next){
+        req.logout(function(err) {
+            if (err) { return next(err); }
+            res.redirect('/');
+          })
+    },
 }
