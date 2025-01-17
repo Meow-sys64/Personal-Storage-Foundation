@@ -11,5 +11,7 @@ const passport = require('passport');
 
 router.get('/login',userController.getLogin)
 router.get('/register',userController.getRegister)
+router.post('/login',userController.postLogin)
+router.post('/register',userController.postRegister)
 
 module.exports = router
