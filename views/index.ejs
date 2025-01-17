@@ -9,29 +9,7 @@
 
 <body>
   <header>
-    <nav>
-      <ul>
-        <li>
-          <a href="/" class="home-link">Home</a>
-        </li>
-        <% if (username){ %>
-          <li>
-            <p>Hello, <%= username %>
-            </p>
-          </li>
-          <li>
-            <a href="/logout">Logout</a>
-          </li>
-          <%} else {%>
-            <li>
-              <a href="/user/login">Login</a>
-            </li>
-            <li>
-            <a href="/user/register">Register</a>
-          </li>
-          <% } %>
-        </ul>
-      </nav>
+      <%- include("partials/navbar.ejs") %>
     </header>
   </body>
 
