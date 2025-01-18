@@ -9,8 +9,18 @@
 
 <body>
   <header>
-      <%- include("partials/navbar.ejs") %>
-    </header>
-  </body>
+    <%- include("partials/navbar.ejs") %>
+  </header>
+  <% if (username){ %>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <label for="file_name">File Name:</label>
+      <input type="text" placeholder="Optional" name="file_name" id="file_name">
+      <label for="uploaded_file">Upload File: </label>
+      <input type="file" name="uploaded_file" id="uploaded_file" required/>
+      <button type="submit">Submit</button>
+    </form>
+    <% } %>
+</body>
 
 </html>
