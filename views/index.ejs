@@ -19,7 +19,7 @@
 
       <label for="folder_name">Folder Name:</label>
       <select name="folder_name" id="folder_name">
-        <option value="newFolder">Create New Folder</option>
+        <option value="newFolder" id="newFolderOption">Create New Folder</option>
         <%if(userFolders && userFolders.length> 0){ %>
           <% userFolders.forEach((item)=>{ %>
             <option>
@@ -28,13 +28,13 @@
             <%})%>
               <%} %>
       </select>
-      <label for="customFolder" style="display: none;">New Folder Name:</label>
-      <input type="text" name="newFolder" id="newFolder" >
-
-      <div id="new-folder-container">
-        <label for="uploaded_file">Upload File: </label>
-        <input type="file" name="uploaded_file" id="uploaded_file" required />
+      <div id="new-folder-container" >
+        <label for="newFolder" style="display: none;">New Folder Name:</label>
+        <input type="text" name="newFolder" id="newFolder">
       </div>
+
+      <label for="uploaded_file">Upload File: </label>
+      <input type="file" name="uploaded_file" id="uploaded_file" required />
 
       <button type="submit">Submit</button>
     </form>
@@ -46,11 +46,13 @@
   // Get the select element and the div container for the input text field
   const dropdown = document.getElementById('folder_name');
   const newFolderContainer = document.getElementById('new-folder-container');
+  const newFolder = document.getElementById('newFolder')
+  const newFolderOption = document.getElementById('newFolderOption')
 
   // Add an event listener for the 'change' event on the dropdown
-  dropdown.addEventListener('change', function() {
+  dropdown.addEventListener('change', function () {
     // Check if the 'Create New' option is selected
-    if (dropdown.value === 'create') {
+    if  ( dropdown.selectedIndex === 0 ){
       // Show the input field
       newFolderContainer.style.display = 'block';
     } else {
@@ -58,5 +60,11 @@
       newFolderContainer.style.display = 'none';
     }
   });
+
+  newFolder.addEventListener('input', function () {
+    newFolderOption.setAttribute("value", newFolder.value)
+  })
+
 </script>
+
 </html>
