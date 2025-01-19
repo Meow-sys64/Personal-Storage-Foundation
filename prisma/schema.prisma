@@ -20,25 +20,20 @@ model Session {
   expiresAt DateTime
 }
 
-//User, password
-//file storage? Folder model, files model. many-to-many
-// Folder : id, UserId, name
-// File: Id, UserId, FolderId, name, data
-
 model User {
   id            Int      @id @default(autoincrement())
   username      String   @unique
   password_hash String
   folders       Folder[]
-  files         File[]
+  files         File[]   @relation("FileToUser")
 }
 
 model Folder {
   id     Int    @id @default(autoincrement())
-  name   String
-  User   User   @relation(fields: [userId], references: [id])
+  name   String @unique
+  user   User   @relation(fields: [userId], references: [id])
   userId Int
-  files  File[]
+  files  File[] @relation("FileToFolder")
 }
 
 model File {
@@ -46,8 +41,8 @@ model File {
   name String
   url  String
 
-  User     User    @relation(fields: [userId], references: [id])
+  user     User    @relation("FileToUser", fields: [userId], references: [id])
   userId   Int
-  Folder   Folder? @relation(fields: [folderId], references: [id])
+  folder   Folder? @relation("FileToFolder", fields: [folderId], references: [id])
   folderId Int?
 }
