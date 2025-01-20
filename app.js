@@ -51,18 +51,14 @@ app.use((req,res,next) => {
 app.use('/',indexRoute)
 app.use('/user', userRoute)
 
-//app.get("/", (req,res,next)=>{res.send("HOOIIII")})
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
   console.log(`Server Listening on port ${PORT}!`)
 })
 
-//accounts
-//  auth
-//  db
-//
-//file storeage
-//  db setup
-//    personalized folder structure
-//
+function errorHandler(err,req,res,next){
+  console.log(err)
+  res.render("errorPage", {errorMessage: err?.message, username: req.user?.username}) 
+}

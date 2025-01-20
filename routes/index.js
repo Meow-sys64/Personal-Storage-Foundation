@@ -13,5 +13,6 @@ router.get('/',indexController.index)
 router.get('/logout', indexController.logout)
 
 router.post('/upload', indexController.upload)
+router.get('/folder/:folderId', indexController.getFolder)
 
 module.exports = router
