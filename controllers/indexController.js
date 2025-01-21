@@ -12,7 +12,7 @@ module.exports = {
     // Collect all user's folders to send to frontend
     const userFolders = await prisma.folder.findMany({
       where: {
-        userId: req.user.id
+        userId: req.user?.id
       }
     })
     //const userLooseFiles = await prisma.file.findMany({
@@ -81,7 +81,7 @@ module.exports = {
         next(new Error("Folder Not Found"))
       }
 
-      if (loadedFolder.userId !== req.user.id) {
+      if (loadedFolder?.userId !== req.user.id) {
         //Unauthorized
         return res.status(401).render("errorPage", {
           errorMessage: "Unauthorized",
@@ -95,9 +95,17 @@ module.exports = {
         }
       })
 
-      if (loadedFiles.userId !== req.user.id) {
-        res.status(401).render('')
-      }
+      //if (loadedFiles.userId !== req.user.id) {
+      //  return res.status(401).render("errorPage", {
+      //    errorMessage: "Unauthorized",
+      //    username:req.user?.username
+      //  })
+      //}
+      //TODO: Render files on an access basis
+
+      console.log(loadedFiles)
+
+      res.render("fileList",{loadedFiles, username: req.user?.username})
     }
     catch (err) {
       console.log(err)

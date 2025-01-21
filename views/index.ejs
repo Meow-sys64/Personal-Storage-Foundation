@@ -15,10 +15,10 @@
 
     <%- include("partials/newFileForm.ejs") %>
 
-    <div class="gallery-container">
+    <div class="folder-list">
       <% if(userFolders && userFolders.length > 0){ %>
       <% userFolders.forEach(item =>{ %>
-      <a href=""><%= item.name %></a>
+      <a href=<%=`/folder/${item.id}` %> ><%= item.name %></a>
       <% }) %>
       <% } %>
     </div>
