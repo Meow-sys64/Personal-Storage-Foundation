@@ -45,7 +45,7 @@ model Folder {
 model File {
   id   Int    @id @default(autoincrement())
   name String
-  url  String
+  url  String @unique
 
   user     User    @relation("FileToUser", fields: [userId], references: [id])
   userId   Int
