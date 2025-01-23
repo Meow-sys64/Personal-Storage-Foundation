@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,15 +12,10 @@
     <%- include("partials/navbar.ejs") %>
   </header>
   <% if (username){ %>
-
-
-    <div class="gallery-container">
-      <% if(loadedFiles && loadedFiles.length > 0){ %>
-      <% loadedFiles.forEach(item =>{ %>
-      <a href=<%= `/file/${ item.id }` %> ><%= item.name %></a>
-      <% }) %>
-      <% } %>
-    </div>
+<h1><%= loadedFile.name %></h1>
+<p>Created: <%= loadedFile.createdAt%></p>
+<img src=<%=`/${ loadedFile.url }/download` %> alt="">
+<a href=<%= `/${ loadedFile.url }/download` %> download="myImage.png" >Download</a>
     <% } %>
 </body>
 

@@ -5,6 +5,8 @@ const multer = require('multer')
 const upload = multer({ dest: './temp_file_storage/' })
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
+const path = require('path');
+const fs = require('fs');
 
 module.exports = {
 
@@ -85,7 +87,7 @@ module.exports = {
         //Unauthorized
         return res.status(401).render("errorPage", {
           errorMessage: "Unauthorized",
-          username:req.user?.username
+          username: req.user?.username
         })
       }
 
@@ -105,14 +107,75 @@ module.exports = {
 
       console.log(loadedFiles)
 
-      res.render("fileList",{loadedFiles, username: req.user?.username})
+      res.render("fileList", { loadedFiles, username: req.user?.username })
     }
     catch (err) {
       console.log(err)
-      return next(new Error(err))
+      return next(new Error())
     }
 
 
 
+  },
+  async getFile(req, res, next) {
+    try {
+      const loadedFile = await prisma.file.findUnique({
+        where: {
+          id: parseInt(req.params.fileId)
+        }
+      })
+
+      if (!loadedFile) {
+        next(new Error("File Not Found"))
+      }
+
+      if (loadedFile.userId !== req.user.id) {
+        return res.status(401).render("errorPage", {
+          errorMessage: "Unauthorized",
+          username: req.user?.username
+        })
+      }
+
+      res.render("filePage", { loadedFile, username: req.user?.username })
+
+    }
+    catch (err) {
+      console.error(err)
+      return next(new Error())
+    }
+  },
+  async downloadFile(req, res, next) {
+    try {
+      const { fileUrl } = req.params;
+      const userAuth = await prisma.file.findUnique({
+        where: { url: `temp_file_storage/${fileUrl}` }
+      })
+      if(!userAuth){
+      next(new Error(`File not found in database`))
+      }
+
+      if (req.user?.id !== userAuth?.userId) {
+        next(new Error(`User doesn't have access to this file`))
+      }
+      const parentDir = path.join(__dirname, '..');
+      const filePath = path.join(parentDir, 'temp_file_storage', fileUrl);
+
+      // Check if file exists
+      if (fs.existsSync(filePath)) {
+        // Set the correct Content-Disposition header for file download
+        res.download(filePath, (err) => {
+          if (err) {
+            next(new Error('Error Downloading the File'))
+          }
+        });
+      } else {
+        next(new Error("File not found."))
+      }
+
+    }
+    catch (err) {
+      console.error(err)
+      next(new Error())
+    }
   }
 }

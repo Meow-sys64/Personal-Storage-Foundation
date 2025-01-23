@@ -15,4 +15,7 @@ router.get('/logout', indexController.logout)
 router.post('/upload', indexController.upload)
 router.get('/folder/:folderId', indexController.getFolder)
 
+router.get('/file/:fileId',indexController.getFile)
+router.get('/temp_file_storage/:fileUrl/download',indexController.downloadFile)
+
 module.exports = router
