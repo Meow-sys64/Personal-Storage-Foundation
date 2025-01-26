@@ -49,7 +49,6 @@ app.use((req,res,next) => {
 })
 app.use('/',indexRoute)
 app.use('/user', userRoute)
-
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 3000
