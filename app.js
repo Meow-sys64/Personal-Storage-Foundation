@@ -36,7 +36,6 @@ require('./config/passport'); // Ensure this is before app.use(passport.initiali
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 // ROUTE IMPORTS
 
 const indexRoute = require('./routes/index')
